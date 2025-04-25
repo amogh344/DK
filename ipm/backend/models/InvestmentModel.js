@@ -13,6 +13,11 @@ const investmentSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+    enum: ['Stock', 'Mutual Fund', 'Crypto', 'Fixed Deposit', 'Other'], // Optional: restrict to known types
+  },
 });
 
 const Investment = mongoose.model('Investment', investmentSchema);

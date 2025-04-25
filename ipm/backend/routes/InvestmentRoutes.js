@@ -1,5 +1,5 @@
 import express from 'express';
-import Investment from '../models/InvestmentModel.js'; // Adjusted path
+import Investment from '../models/InvestmentModel.js';
 
 const router = express.Router();
 
@@ -21,10 +21,10 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.post('/', async (req, res) => {
   try {
-    const { name, amount, date } = req.body;
+    const { name, amount, date, type } = req.body;
 
     // Basic validation
-    if (!name || !amount || !date) {
+    if (!name || !amount || !date || !type) {
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
@@ -32,6 +32,7 @@ router.post('/', async (req, res) => {
       name,
       amount,
       date,
+      type,
     });
 
     const savedInvestment = await newInvestment.save();
@@ -47,11 +48,11 @@ router.post('/', async (req, res) => {
 // @access  Public
 router.put('/:id', async (req, res) => {
   try {
-    const { name, amount, date } = req.body;
+    const { name, amount, date, type } = req.body;
 
     const updatedInvestment = await Investment.findByIdAndUpdate(
       req.params.id,
-      { name, amount, date },
+      { name, amount, date, type },
       { new: true }
     );
 
